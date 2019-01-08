@@ -19,6 +19,7 @@ import {
   backgroundTaskHandler,
   pushNeedsPullHandler,
   upstreamAlreadyExistsHandler,
+  rebaseConflictsHandler,
 } from './dispatcher'
 import {
   AppStore,
@@ -156,6 +157,7 @@ dispatcher.registerErrorHandler(gitAuthenticationErrorHandler)
 dispatcher.registerErrorHandler(pushNeedsPullHandler)
 dispatcher.registerErrorHandler(backgroundTaskHandler)
 dispatcher.registerErrorHandler(missingRepositoryHandler)
+dispatcher.registerErrorHandler(rebaseConflictsHandler)
 
 document.body.classList.add(`platform-${process.platform}`)
 
