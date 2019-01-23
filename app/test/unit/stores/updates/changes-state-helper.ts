@@ -15,6 +15,7 @@ export function createState<K extends keyof IChangesState>(
     showCoAuthoredBy: false,
     coAuthors: [],
     conflictState: null,
+    rebaseState: null,
   }
 
   return merge(baseChangesState, pick)
@@ -26,6 +27,7 @@ export function createStatus<K extends keyof IStatusResult>(
   const baseStatus: IStatusResult = {
     exists: true,
     mergeHeadFound: false,
+    rebaseHeadFound: false,
     workingDirectory: WorkingDirectoryStatus.fromFiles([]),
   }
 

@@ -165,3 +165,15 @@ export function updateConflictState(
 
   return newConflictState
 }
+
+export function updateRebaseState(
+  state: IChangesState,
+  status: IStatusResult,
+  statsStore: IStatsStore
+) {
+  if (status.rebaseHeadFound) {
+    return {}
+  } else {
+    return null
+  }
+}

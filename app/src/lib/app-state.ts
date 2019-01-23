@@ -264,6 +264,8 @@ export interface IConflictState {
   readonly manualResolutions: Map<string, ManualConflictResolution>
 }
 
+export interface IRebaseState {}
+
 export interface IRepositoryState {
   readonly commitSelection: ICommitSelection
   readonly changesState: IChangesState
@@ -430,6 +432,13 @@ export interface IChangesState {
    * The absence of a value means there is no merge conflict
    */
   readonly conflictState: IConflictState | null
+
+  /**
+   * Stores information about a merge conflict when it occurs
+   *
+   * The absence of a value means there is no merge conflict
+   */
+  readonly rebaseState: IRebaseState | null
 }
 
 /**
