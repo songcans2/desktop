@@ -23,6 +23,7 @@ import { DiffSelectionType, DiffSelection } from '../../models/diff'
 import { Repository } from '../../models/repository'
 import { IAheadBehind } from '../../models/branch'
 import { fatalError } from '../../lib/fatal-error'
+import { enableNewRebaseFlow } from '../feature-flag'
 import { isMergeHeadSet } from './merge'
 import { getBinaryPaths } from './diff'
 import { isRebaseHeadSet } from './rebase'
@@ -196,7 +197,19 @@ export async function getStatus(
 
   const mergeHeadFound = await isMergeHeadSet(repository)
   const rebaseHeadFound = await isRebaseHeadSet(repository)
-  const conflictDetails = await getConflictDetails(repository, mergeHeadFound)
+
+  let conflictDetails: ConflictFilesDetails
+
+  if (enableNewRebaseFlow()) {
+    // if MERGE_HEAD or REBASE_HEAD found, look for conflicted files
+    conflictDetails = await getConflictDetails(
+      repository,
+      mergeHeadFound || rebaseHeadFound
+    )
+  } else {
+    // if MERGE_HEAD found, look for conflicted files
+    conflictDetails = await getConflictDetails(repository, mergeHeadFound)
+  }
 
   // Map of files keyed on their paths.
   const files = entries.reduce(
