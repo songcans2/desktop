@@ -12,14 +12,18 @@ import {
   WorkingDirectoryFileChange,
   AppFileStatusKind,
   ConflictedFileStatus,
-  isConflictedFileStatus,
   isConflictWithMarkers,
 } from '../../models/status'
 import { Octicon, OcticonSymbol } from '../octicons'
 import { PathText } from '../lib/path-text'
 import { DialogHeader } from '../dialog/header'
 import { LinkButton } from '../lib/link-button'
-import { isConflictedFile, hasUnresolvedConflicts } from '../../lib/status'
+import {
+  hasUnresolvedConflicts,
+  getResolvedFiles,
+  getConflictedFiles,
+  getUnmergedFiles,
+} from '../../lib/status'
 import { DefaultCommitMessage } from '../../models/commit-message'
 import { shell } from '../../lib/app-shell'
 import { openFile } from '../lib/open-file'
@@ -51,25 +55,6 @@ interface IMergeConflictsDialogProps {
  */
 function calculateConflicts(conflictMarkers: number) {
   return Math.ceil(conflictMarkers / 3)
-}
-
-/** Filter working directory changes for conflicted or resolved files  */
-function getUnmergedFiles(status: WorkingDirectoryStatus) {
-  return status.files.filter(f => isConflictedFile(f.status))
-}
-
-/** Filter working directory changes for resolved files  */
-function getResolvedFiles(status: WorkingDirectoryStatus) {
-  return status.files.filter(
-    f => isConflictedFileStatus(f.status) && !hasUnresolvedConflicts(f.status)
-  )
-}
-
-/** Filter working directory changes for conflicted files  */
-function getConflictedFiles(status: WorkingDirectoryStatus) {
-  return status.files.filter(
-    f => isConflictedFileStatus(f.status) && hasUnresolvedConflicts(f.status)
-  )
 }
 
 function editorButtonString(editorName: string | null): string {

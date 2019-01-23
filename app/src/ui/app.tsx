@@ -1517,7 +1517,34 @@ export class App extends React.Component<IAppProps, IAppState> {
           />
         )
       case PopupType.RebaseConflicts:
-        return <RebaseConflictsDialog onDismissed={this.onPopupDismissed} />
+        const { selectedState } = this.state
+        if (
+          selectedState === null ||
+          selectedState.type !== SelectionType.Repository
+        ) {
+          return null
+        }
+
+        const {
+          workingDirectory,
+          rebaseState,
+        } = selectedState.state.changesState
+
+        if (rebaseState === null) {
+          return null
+        }
+
+        return (
+          <RebaseConflictsDialog
+            dispatcher={this.props.dispatcher}
+            repository={popup.repository}
+            workingDirectory={workingDirectory}
+            onDismissed={this.onPopupDismissed}
+            openFileInExternalEditor={this.openFileInExternalEditor}
+            resolvedExternalEditor={this.state.resolvedExternalEditor}
+            openRepositoryInShell={this.openInShell}
+          />
+        )
       default:
         return assertNever(popup, `Unknown popup type: ${popup}`)
     }

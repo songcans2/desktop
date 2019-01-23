@@ -3,7 +3,7 @@ import {
   WorkingDirectoryFileChange,
 } from '../../../models/status'
 import { IStatusResult } from '../../git'
-import { IChangesState, IConflictState } from '../../app-state'
+import { IChangesState, IConflictState, IRebaseState } from '../../app-state'
 import { DiffSelectionType, IDiff } from '../../../models/diff'
 import { caseInsensitiveCompare } from '../../compare'
 import { IStatsStore } from '../../stats/stats-store'
@@ -166,14 +166,21 @@ export function updateConflictState(
   return newConflictState
 }
 
+/**
+ * Convert the received status information into a rebase object
+ */
+function getRebaseState(status: IStatusResult): IRebaseState | null {
+  if (!status.rebaseHeadFound) {
+    return null
+  }
+
+  return {}
+}
+
 export function updateRebaseState(
   state: IChangesState,
   status: IStatusResult,
   statsStore: IStatsStore
 ) {
-  if (status.rebaseHeadFound) {
-    return {}
-  } else {
-    return null
-  }
+  return getRebaseState(status)
 }
