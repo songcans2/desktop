@@ -95,6 +95,7 @@ import { PopupType, Popup } from '../models/popup'
 import { SuccessfulMerge, MergeConflictsBanner } from './banners'
 import { OversizedFiles } from './changes/oversized-files-warning'
 import { UsageStatsChange } from './usage-stats-change'
+import { RebaseConflictsDialog } from './rebase'
 
 const MinuteInMilliseconds = 1000 * 60
 const HourInMilliseconds = MinuteInMilliseconds * 60
@@ -1516,7 +1517,7 @@ export class App extends React.Component<IAppProps, IAppState> {
           />
         )
       case PopupType.RebaseConflicts:
-        return null
+        return <RebaseConflictsDialog onDismissed={this.onPopupDismissed} />
       default:
         return assertNever(popup, `Unknown popup type: ${popup}`)
     }
