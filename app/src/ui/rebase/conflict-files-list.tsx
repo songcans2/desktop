@@ -15,7 +15,6 @@ import {
 } from '../../models/status'
 import { Dispatcher } from '../dispatcher'
 import { Button } from '../lib/button'
-import { List } from '../lib/list'
 import { PathText } from '../lib/path-text'
 import { Octicon, OcticonSymbol } from '../octicons'
 import {
@@ -168,16 +167,7 @@ export class ConflictedFilesList extends React.Component<
     ) : null
   }
 
-  private renderRow = (rowNumber: number) => {
-    const file = this.props.files[rowNumber]
-
-    if (file == null) {
-      log.debug(
-        `[ConflictedFilesList] unable to find item to render for '${rowNumber}'`
-      )
-      return null
-    }
-
+  private renderRow = (file: WorkingDirectoryFileChange) => {
     const { status } = file
     switch (status.kind) {
       case AppFileStatusKind.Conflicted:
@@ -208,12 +198,9 @@ export class ConflictedFilesList extends React.Component<
     }
 
     return (
-      <List
-        rowHeight={29}
-        selectedRows={[]}
-        rowCount={this.props.files.length}
-        rowRenderer={this.renderRow}
-      />
+      <ul className="unmerged-file-statuses">
+        {this.props.files.map(f => this.renderRow(f))}
+      </ul>
     )
   }
 }
