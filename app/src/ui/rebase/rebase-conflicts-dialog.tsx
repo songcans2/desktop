@@ -46,7 +46,7 @@ export class RebaseConflictsDialog extends React.Component<
 
     const tooltipString =
       conflictedFilesCount > 0
-        ? 'Resolve all changes before continuing'
+        ? 'Resolve all conflicts before continuing'
         : undefined
     return (
       <Dialog
