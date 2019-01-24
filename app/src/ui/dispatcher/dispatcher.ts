@@ -635,8 +635,11 @@ export class Dispatcher {
     await this.appStore._loadStatus(repository)
   }
 
-  public async continueRebase(repository: Repository) {
-    await this.appStore._continueRebase(repository)
+  public async continueRebase(
+    repository: Repository,
+    workingDirectory: WorkingDirectoryStatus
+  ) {
+    await this.appStore._continueRebase(repository, workingDirectory)
   }
 
   /** aborts an in-flight merge and refreshes the repository's status */

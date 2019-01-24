@@ -37,7 +37,10 @@ export class RebaseConflictsDialog extends React.Component<
   }
 
   private onSubmit = async () => {
-    await this.props.dispatcher.continueRebase(this.props.repository)
+    await this.props.dispatcher.continueRebase(
+      this.props.repository,
+      this.props.workingDirectory
+    )
     this.props.onDismissed()
   }
 
