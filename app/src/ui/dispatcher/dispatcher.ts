@@ -629,6 +629,16 @@ export class Dispatcher {
     return this.appStore._mergeBranch(repository, branch, mergeStatus)
   }
 
+  /** aborts the current rebase and refreshes the repository's status */
+  public async abortRebase(repository: Repository) {
+    await this.appStore._abortRebase(repository)
+    await this.appStore._loadStatus(repository)
+  }
+
+  public async continueRebase(repository: Repository) {
+    await this.appStore._continueRebase(repository)
+  }
+
   /** aborts an in-flight merge and refreshes the repository's status */
   public async abortMerge(repository: Repository) {
     await this.appStore._abortMerge(repository)

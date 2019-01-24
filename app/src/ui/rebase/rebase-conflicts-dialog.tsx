@@ -27,15 +27,17 @@ export class RebaseConflictsDialog extends React.Component<
     this.props.dispatcher.resolveCurrentEditor()
   }
 
-  private onCancel = () => {
-    debugger
+  private onCancel = async () => {
+    await this.props.dispatcher.abortRebase(this.props.repository)
+    this.onDismissed()
   }
 
   private onDismissed = () => {
     this.props.onDismissed()
   }
 
-  private onSubmit = () => {
+  private onSubmit = async () => {
+    await this.props.dispatcher.continueRebase(this.props.repository)
     this.props.onDismissed()
   }
 
