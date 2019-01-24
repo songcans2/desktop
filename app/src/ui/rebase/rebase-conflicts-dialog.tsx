@@ -23,6 +23,10 @@ export class RebaseConflictsDialog extends React.Component<
   IRebaseConflictsDialog,
   {}
 > {
+  public async componentDidMount() {
+    this.props.dispatcher.resolveCurrentEditor()
+  }
+
   private onCancel = () => {
     debugger
   }
