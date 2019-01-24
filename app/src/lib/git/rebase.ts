@@ -6,6 +6,7 @@ import { git } from './core'
 import { WorkingDirectoryFileChange } from '../../models/status'
 import { ManualConflictResolution } from '../../models/manual-conflict-resolution'
 import { stageConflictedFile } from './stage'
+import { stageFiles } from './update-index'
 
 /**
  * Check the `.git/REBASE_HEAD` file exists in a repository to confirm
@@ -38,6 +39,10 @@ export async function continueRebase(
       )
     }
   }
+
+  const otherFiles = files.filter(f => !manualResolutions.has(f.path))
+
+  await stageFiles(repository, otherFiles)
 
   await git(['rebase', '--continue'], repository.path, 'continueRebase')
 }

@@ -640,6 +640,7 @@ export class Dispatcher {
     workingDirectory: WorkingDirectoryStatus
   ) {
     await this.appStore._continueRebase(repository, workingDirectory)
+    await this.appStore._loadStatus(repository)
   }
 
   /** aborts an in-flight merge and refreshes the repository's status */
