@@ -56,7 +56,6 @@ interface IConflictedFilesListProps {
   readonly files: ReadonlyArray<WorkingDirectoryFileChange>
   readonly openFileInExternalEditor: (path: string) => void
   readonly resolvedExternalEditor: string | null
-  readonly openRepositoryInShell: (repository: Repository) => void
 }
 
 export class ConflictedFilesList extends React.Component<

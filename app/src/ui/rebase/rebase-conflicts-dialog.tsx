@@ -62,7 +62,6 @@ export class RebaseConflictsDialog extends React.Component<
             dispatcher={this.props.dispatcher}
             repository={this.props.repository}
             openFileInExternalEditor={this.props.openFileInExternalEditor}
-            openRepositoryInShell={this.props.openRepositoryInShell}
             resolvedExternalEditor={this.props.resolvedExternalEditor}
             files={unmergedFiles}
           />
